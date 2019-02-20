@@ -1,0 +1,36 @@
+.row
+  .col-sm-5
+    .card.card-tasks
+      / .card-header
+      .card-body
+        = form_for @company, html:{method: (@company_method.blank?) ? "POST" : @company_method, class: "frm-custom" , id: "company_frm_id"}, url: @company_form_url do |f|
+          #message_wrapper
+            = render 'share/error_messages'
+          .form-group
+            = f.label :name, for: 'company_name'
+            = f.text_field :name, class: 'form-control', placeholder: 'Name', autofocus: true
+          .form-group
+            = f.label :website, for: 'company_website'
+            = f.text_field :website, class: 'form-control', placeholder: 'Website'
+          .form-group
+            = f.label :phone, for: 'company_phone'
+            = f.text_field :phone, class: 'form-control', placeholder: 'Phone'
+          .form-group
+            = f.label :email, for: 'company_email'
+            = f.text_field :email, class: 'form-control', placeholder: 'Email'
+          .form-group
+            = f.label :user, for: "company_user_id"
+            = f.select(:user_id, @users.collect { |a| [a.username, a.id] }, {}, class: 'form-control')
+          .form-group
+            = f.label :address, for: 'company_address'
+            = f.text_area :address, rows: 2, cols: 2, class: 'form-control', placeholder: 'Address'
+          .form-group
+            = f.label :descriptions, for: 'company_descriptions'
+            = f.text_area :descriptions, rows: 2, cols: 2, class: 'form-control', placeholder: 'Description'
+          .form-group
+            = link_to 'Cancel', admin_branches_path, class: 'btn btn-default'
+            span &nbsp;
+            - if @edit_btn && @edit_btn == true
+              = f.submit 'Update', class: 'btn btn-primary'
+            - else
+              = f.submit 'Save', class: 'btn btn-primary'

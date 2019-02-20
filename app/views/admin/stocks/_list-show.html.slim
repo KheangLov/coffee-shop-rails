@@ -1,0 +1,38 @@
+h2.title Stock Detail
+.row
+  .col-sm-6
+    .card.card-tasks
+      .card-body
+        .form-group
+          label for="stock_name" Stock Name
+          input.form-control name="stock_name" value = @stock.name readonly=""
+        .form-group
+          label for="stock_name" Stock Category
+          input.form-control name="stock_name" value = @stock.stock_category.name readonly=""
+        .form-group
+          label for="stock_name" Branch
+          input.form-control name="stock_name" value = @stock.branch.name readonly=""
+        .form-group
+          label for="stock_name" Price
+          input.form-control name="stock_name" value = @stock_price readonly=""
+        .form-group
+          label for="stock_name" Sale Price
+          input.form-control name="stock_name" value = @stock_sale_price readonly=""
+  .col-sm-6
+    .card.card-tasks
+      .card-body
+        .form-group
+          label for="stock_name" Import Date
+          input.form-control name="stock_name" value = @stock.created_at.to_date readonly=""
+        .form-group
+          label for="stock_name" Expired Date
+          input.form-control name="stock_name" value = @stock.expired_date readonly=""
+        .form-group
+          label for="stock_name" Quantity
+          input.form-control name="stock_name" value = @stock.qty readonly=""
+        .form-group
+          label for="stock_name" Alert Quantity
+          input.form-control name="stock_name" value = @stock.alert_qty readonly=""
+        .form-group
+          label for="stock_name" Description
+          input.form-control name="stock_name" value = @stock.description readonly=""

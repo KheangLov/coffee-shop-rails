@@ -1,0 +1,33 @@
+.row
+  .col-sm-6
+    = link_to "Add New", new_admin_user_path, :class => "btn btn-primary btn-btmar"
+  .col-sm-6
+    .input-group
+      - if (@filter_param && @filter_param != "")
+        = hidden_field_tag(:filter, @filter_param, class: 'form-control')
+      = text_field_tag(:query, (@query_param && @query_param != "") ? @query_param : nil, list: "option_selected_datalist", placeholder: "Search...", autofocus: true, class: 'form-control', id: 'stock_select_type_input')
+      .input-group-btn
+        = submit_tag("Search", name: "submit", class: 'btn btn-default')
+
+.row
+  .col-sm-12
+    .card.card-tasks
+      .card-body
+        - unless @users.blank?
+          table.table
+            thead
+              tr
+                th #
+                th Username
+                th Email
+                th Gender
+                th Role
+                th Status
+                th Action
+            tbody
+              - @i = 0
+              - for @user in @users
+                = render 'list'
+        - else
+          .section-wrapper
+            p We don't have any braches yet!

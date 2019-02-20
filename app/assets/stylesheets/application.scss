@@ -1,0 +1,64 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+
+@import "font-awesome";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "style";
+
+.title {
+  font-size: 48px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.padding {
+  padding: 50px 0;
+}
+
+.btn-btmar {
+  margin-bottom: 15px;
+}
+
+.alerted-count {
+  color: #ff1122;
+  font-size: 14px;
+  margin: 5px;
+}
+
+.navbar-default .navbar-nav li .dropdown-menu {
+  width: 250px;
+}
+
+.navbar-default .navbar-nav li .dropdown-menu li p {
+  margin: 0;
+}
+
+.seperator {
+  margin: 0;
+}
+
+.navbar-default .navbar-nav li .dropdown-menu li .alert-link {
+  padding: 10px 15px;
+  color: #ff1122;
+}
+
+.padd {
+  padding: 15px 0;
+}
+
+.padd .username {
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}

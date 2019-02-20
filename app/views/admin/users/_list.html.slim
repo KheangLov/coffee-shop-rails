@@ -1,0 +1,27 @@
+tr
+  td = @i += 1
+  td 
+    strong = @user.username.capitalize
+  td = @user.email
+  td = @user.gender.capitalize
+  td = @user.role.name.capitalize
+  td
+    - if @user.status.blank?
+      p -
+    - else
+      - if @user.status == APP::PENDING
+        label.label.label-warning = @user.status.capitalize
+      - elsif @user.status == APP::ACTIVE
+        label.label.label-success = @user.status.capitalize
+      - elsif @user.status == APP::INACTIVE
+        label.label.label-info = @user.status.capitalize
+      - else
+        label.label.label-danger = @user.status.capitalize
+  td
+    ul class="list-inline"
+      li = link_to "Edit", edit_admin_user_path(@user.id)
+      li = link_to "Show", admin_user_path(@user.id)
+      li = link_to "Delete", admin_user_path(@user.id), method: :delete, data: { confirm: 'Are you sure?' }
+
+
+

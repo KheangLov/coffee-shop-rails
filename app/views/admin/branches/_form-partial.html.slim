@@ -1,0 +1,33 @@
+.row
+  .col-sm-5
+    .card.card-tasks
+      / .card-header
+      .card-body
+        = form_for @branch, html:{method: (@branch_method.blank?) ? "POST" : @branch_method, class: "frm-custom" , id: "branch_frm_id"}, url: @branch_form_url do |f|
+          #message_wrapper
+            = render 'share/error_messages'
+          .form-group
+            = f.label :name, for: 'branch_name'
+            = f.text_field :name, class: 'form-control', placeholder: 'Name', autofocus: true
+          .form-group
+            = f.label :address, for: 'branch_address'
+            = f.text_field :address, class: 'form-control', placeholder: 'Address'
+          .form-group
+            = f.label :phone, for: 'branch_phone'
+            = f.text_field :phone, class: 'form-control', placeholder: 'Phone'
+          .form-group
+            = f.label :email, for: 'branch_email'
+            = f.text_field :email, class: 'form-control', placeholder: 'Email'
+          .form-group
+            = f.label :company, for: "company_user_id"
+            = f.select(:company_id, @companies.collect { |a| [a.name, a.id] }, {}, class: 'form-control')
+          .form-group
+            = f.label :description, for: 'branch_description'
+            = f.text_area :description, rows: 2, cols: 2, class: 'form-control', placeholder: 'Description'
+          .form-group
+            = link_to 'Cancel', admin_branches_path, class: 'btn btn-default'
+            span &nbsp;
+            - if @edit_btn && @edit_btn == true
+              = f.submit 'Update', class: 'btn btn-primary'
+            - else
+              = f.submit 'Save', class: 'btn btn-primary'

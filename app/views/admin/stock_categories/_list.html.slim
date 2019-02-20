@@ -1,0 +1,18 @@
+table.table
+  thead
+    tr
+      th #
+      th Name
+      th Branch
+      th Action
+  tbody
+    - i = 0
+    - for @stc in @stock_categories
+      tr
+        td = i += 1
+        td = @stc.name
+        td = @stc.branch.name
+        td
+          ul.list-inline
+            li = link_to "Edit", edit_admin_stock_category_path(@stc.id)
+            li = link_to "Delete", admin_stock_category_path(@stc.id), method: 'DELETE', data: { confirm: 'Are you sure?' }

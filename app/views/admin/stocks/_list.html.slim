@@ -1,0 +1,29 @@
+tr
+  td = @i += 1
+  td = @stock.name
+  td = @stock.stock_category.name
+  td 
+    | $
+    = @stock.sale_price
+  td = @stock.created_at.to_date
+  td = @stock.expired_date
+  td
+    - if @stock.status.blank?
+      p -
+    - else
+      - if @stock.status == APP::PENDING
+        label.label.label-warning = @stock.status.capitalize
+      - elsif @stock.status == APP::ACTIVE
+        label.label.label-success = @stock.status.capitalize
+      - elsif @stock.status == APP::INACTIVE
+        label.label.label-info = @stock.status.capitalize
+      - else
+        label.label.label-danger = @stock.status.capitalize
+  td
+    ul class="list-inline"
+      li = link_to "Edit", edit_admin_stock_path(@stock.id)
+      li = link_to "Show", admin_stock_path(@stock.id)
+      li = link_to "Delete", admin_stock_path(@stock.id), method: :delete, data: { confirm: 'Are you sure?' }
+
+
+

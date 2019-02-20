@@ -1,0 +1,21 @@
+.row
+  .col-sm-3
+    - unless @alerted_count.blank? or @alerted_count == 0
+      .card.card-stats
+        .card-body
+          .row
+            .col-sm-5
+              i.fa.fa-close.fa-danger
+            .col-sm-7.text-right
+              - unless @alerted_count.blank? or @alerted_count == 0
+                span.text-danger 
+                  strong #{@alerted_count} alerted!
+                  br
+                  | Please check your Stocks!
+        .card-footer
+          hr
+          i.fa.fa-repeat
+          = link_to 'Update now', admin_stocks_path, class: "notify"
+  / - else
+  /   .section-wrapper
+  /     p We don't have any braches yet!

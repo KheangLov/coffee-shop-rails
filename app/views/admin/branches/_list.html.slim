@@ -1,0 +1,5 @@
+- unless @branch.blank?
+    .block-grid-item
+      a.block-inner.card href="#{edit_admin_branch_path(@branch.id)}"
+        .block-description.card-body
+          h4.block-title = @branch.name

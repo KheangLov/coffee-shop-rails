@@ -1,0 +1,55 @@
+.row
+  = form_for @stock, html:{method: (@stock_method.blank?) ? "POST" : @stock_method, class: "frm-custom" , id: "stock_frm_id"}, url: @stock_form_url do |f|
+    .col-sm-6
+      .card.card-tasks
+        - if @error_messages && @error_messages.errors.any?
+          .card-header
+            #message_wrapper
+              = render 'share/error_messages'
+        .card-body
+            .form-group
+              = f.label :name, for: 'stock_name'
+              = f.text_field :name, class: 'form-control', placeholder: 'Name', autofocus: true
+            .form-group
+              = f.label :stock_category, for: "stock_category_id"
+              = f.select(:stock_category_id, @stock_categories.all.collect { |a| [a.name, a.id] }, {}, class: 'form-control')
+            .form-group
+              = f.label :branch, for: "stock_branch_id"
+              = f.select(:branch_id, @branches.all.collect { |a| [a.name, a.id] }, {}, class: 'form-control')
+            .form-group
+              = f.label :expired_date, for: 'stock_expired_date'
+              = f.date_field(:expired_date, value: Time.now.strftime('%Y-%m-%d'), class: "form-control")
+            .form-group
+              = f.label :qty, for: 'stock_qty'
+              = f.text_field :qty, class: 'form-control', placeholder: 'Quantity'
+            .form-group
+              = f.label :alert_qty, for: 'stock_alert_qty'
+              = f.text_field :alert_qty, class: 'form-control', placeholder: 'Alert Quantity'
+    .col-sm-6
+      .card.card-tasks
+        .card-body
+          .form-group
+            = f.label :price, for: 'stock_price'
+            = f.text_field :price, class: 'form-control', placeholder: 'Price'
+          .form-group
+            = f.label :sale_price, for: 'stock_sale_price'
+            = f.text_field :sale_price, class: 'form-control', placeholder: 'Sale Price'
+          .form-group
+            = f.label :status, for: 'st ock_status'
+            span.text-danger *
+            - if @stock  && @stock.status == APP::DELETED
+              - cmp = APP::STOCK_STATUS.dup
+              - cmp.push({status: APP::DELETED}) if cmp.count <= 3
+              = f.select :status, options_for_select(cmp.map { |st| ["#{st[:status].capitalize}", st[:status]] }, (@stock and @stock.status) ? @stock.status : nil), {}, class: 'form-control'
+            - else
+              = f.select :status, options_for_select(APP::STOCK_STATUS.map { |st| ["#{st[:status].capitalize}", st[:status]] }, (@stock and @stock.status) ? @stock.status : nil), {}, class: 'form-control'
+          .form-group
+            = f.label :description, for: 'stock_description'
+            = f.text_area :description, rows: 2, cols: 2, class: 'form-control', placeholder: 'Description'
+          .form-group
+            = link_to 'Cancel', admin_stocks_path, class: 'btn btn-default'
+            span &nbsp;
+            - if @edit_btn && @edit_btn == true
+              = f.submit 'Update', class: 'btn btn-primary'
+            - else
+              = f.submit 'Save', class: 'btn btn-primary'

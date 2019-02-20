@@ -1,0 +1,39 @@
+- ctrl_action = params[:controller].gsub(/\//, '_') + '_' + params[:action]
+aside#mySidenav.sidebar
+  .sidebar-header.text-center
+    h3.site-name = APP::NAME
+  ul.nav.nav-menu
+
+    / - if current_user.role.name == APP::ROLE_SUPERADMIN
+    - pa_controller = params[:controller].split('/')
+    - if pa_controller[0] == APP::ADMIN
+      li class="#{(['admin_users_dashboard'].include?(ctrl_action)) ? "active": ""}"
+        = link_to admin_users_dashboard_path
+          i.fa.fa-tachometer
+          | Dashboard
+      li class="#{(['admin_users_index', 'admin_users_new', 'admin_users_create', 'admin_users_edit'].include?(ctrl_action)) ? "active": ""}"
+        = link_to admin_users_path
+          i.fa.fa-home
+          | Users
+      li class="#{(['admin_branches_index', 'admin_branches_new', 'admin_branches_create', 'admin_branches_edit'].include?(ctrl_action)) ? "active": ""}"
+        = link_to admin_branches_path
+          i.fa.fa-home
+          | Branch
+      li class="#{(['admin_companies_index', 'admin_companies_new', 'admin_stock_categories_create', 'admin_stock_categories_delete'].include?(ctrl_action)) ? "active": ""}"
+        = link_to admin_companies_path
+          i.fa.fa-list-alt
+          | Companies
+
+    - elsif pa_controller[0] == APP::MY
+      li class="#{(['admin_users_dashboard'].include?(ctrl_action)) ? "active": ""}"
+        = link_to admin_users_dashboard_path
+          i.fa.fa-tachometer
+          | Dashboard
+      li class="#{(['admin_stock_categories_index', 'admin_stock_categories_edit', 'admin_stock_categories_create', 'admin_stock_categories_delete'].include?(ctrl_action)) ? "active": ""}"
+        = link_to admin_stock_categories_path
+          i.fa.fa-list-alt
+          | Stock Category
+      li class="#{(['admin_stocks_index', 'admin_stocks_show', 'admin_stocks_edit'].include?(ctrl_action)) ? "active": ""}"
+        = link_to admin_stocks_path
+          i.fa.fa-table
+          | Stock

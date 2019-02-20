@@ -1,0 +1,42 @@
+.row
+  = form_for @user, html:{method: (@user_method.blank?) ? "POST" : @user_method, class: "frm-custom" , id: "user_frm_id"}, url: @user_form_url do |f|
+    .col-sm-6
+      .card.card-tasks
+        - if @error_messages && @error_messages.errors.any?
+          .card-header
+            #message_wrapper
+              = render 'share/error_messages'
+        .card-body
+            .form-group
+              = f.label :username, for: 'user_username'
+              = f.text_field :username, class: 'form-control', placeholder: 'Username', autofocus: true
+            .form-group
+              = f.label :email, for: 'user_email'
+              = f.email_field :email, class: 'form-control', placeholder: 'Email'
+            .form-group
+              = f.label :password, for: 'user_password'
+              = f.password_field :password, class: 'form-control', autocomplete: "off", placeholder: "Password"
+            .form-group
+              = f.label :password_confirmation, for: 'user_password_confirmation'
+              = f.password_field :password_confirmation, class: 'form-control', autocomplete: "off", placeholder: "Password Confirmation"
+            .form-group
+              = f.label :gender, for: 'user_gender'
+              = f.select :gender, options_for_select([[t(:male), APP::MALE],[t(:female), APP::FEMALE],[t(:other), APP::OTHER]], (@user and @user.gender) ? @user.gender : nil), {}, class: 'form-control'
+            .form-group
+              = f.label :role, for: "user_role_id"
+              = f.select(:role_id, @roles.collect { |a| [a.name, a.id] }, {}, class: 'form-control')
+            .form-group
+              = f.label :status, for: "user_status"
+              - if @user and @user.status == APP::BANNED
+                - st = APP::USER_STATUS.dup
+                - st.push({status: APP::BANNED}) if st.count <= 3
+                = f.select :status, options_for_select(st.map { |st| [st[:status].capitalize, st[:status]] }, (@user and @user.status) ? @user.status : nil), {}, class: 'form-control'
+              - else
+                = f.select :status, options_for_select(APP::USER_STATUS.map { |st| [st[:status].capitalize, st[:status]] }, (@user and @user.status) ? @user.status : nil), {}, class: 'form-control'
+            .form-group
+              = link_to 'Cancel', admin_users_path, class: 'btn btn-default'
+              span &nbsp;
+              - if @edit_btn && @edit_btn == true
+                = f.submit 'Update', class: 'btn btn-primary'
+              - else
+                = f.submit 'Save', class: 'btn btn-primary'

@@ -1,0 +1,6 @@
+- if @error_messages && @error_messages.errors.any?
+  #message_wrapper
+    = render 'share/error_messages'
+h1.text-center
+  b =  APP::NAME
+.text-center = link_to 'Sign In', new_user_session_path

@@ -1,0 +1,5 @@
+- unless @company.blank?
+    .block-grid-item
+      a.block-inner.card href="#{edit_admin_company_path(@company.id)}"
+        .block-description.card-body
+          h4.block-title = @company.name

@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    - unless display_meta_tags.blank?
+      = display_meta_tags
+    - else
+      title = APP::NAME
+    = csrf_meta_tags
+
+    / <!-- Animation library for notifications   -->
+    / = stylesheet_link_tag    '/site/assets/css/animate.min.css', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body id="#{params[:controller].gsub(/\//, '_') + '_' + params[:action]}" data-controller=params[:controller].gsub(/\//, '_') data-action=params[:action] class="admin-layout hold-transition login-page" data-url="#{request.base_url}"
+    .wrapper.clearfix
+      = render "share/sidebar"
+      .main-wrapper
+        = render 'share/header'
+        .content
+          = render 'share/flash_message'
+          = yield
+        = render 'share/footer'

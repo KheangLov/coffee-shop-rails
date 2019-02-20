@@ -1,0 +1,19 @@
+= form_for @stock_category, html:{method: (@stock_category_method.blank?) ? "POST" : @stock_category_method, class: "frm-custom" , id: "stock_category_frm_id"}, url: @stock_category_form_url do |f|
+  #message_wrapper
+    = render 'share/error_messages'
+  .form-group
+    = f.label :name, for: 'branch_name'
+    = f.text_field :name, class: 'form-control', placeholder: 'Name', autofocus: true
+  .form-group
+    = f.label :branch, for: "branch_id"
+    = f.select(:branch_id, @branches.all.collect { |a| [a.name, a.id] }, {}, class: 'form-control')
+  .form-group
+    = f.label :description, for: 'branch_description'
+    = f.text_area :description, rows: 2, cols: 2, class: 'form-control', placeholder: 'Description'
+  .form-group
+    = link_to 'Cancel', admin_stock_categories_path, class: 'btn btn-default'
+    span &nbsp;
+    - if @edit_btn && @edit_btn == true
+      = f.submit 'Update', class: 'btn btn-primary'
+    - else
+      = f.submit 'Save', class: 'btn btn-primary'

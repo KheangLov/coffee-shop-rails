@@ -1,0 +1,64 @@
+- ctrl_action = params[:controller].gsub(/\//, '_') + '_' + params[:action]
+- ctrl_param = params[:controller].gsub(/\//, '_')
+nav.navbar.navbar-default.navbar-main
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle.collapsed aria-expanded="false" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button"
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand href="#"
+        - if ctrl_param == 'admin_users' and ctrl_action != 'admin_users_index'
+          = APP::DASHBOARD
+        - elsif ctrl_param == 'admin_branches'
+          = APP::BRANCHES
+        - elsif ctrl_param == 'admin_stock_categories'
+          = APP::STOCK_CATEGORIES
+        - elsif ctrl_param == 'admin_stocks'
+          = APP::STOCKS
+        - elsif ctrl_param == 'admin_users' or ctrl_action == 'admin_users_index'
+          = APP::USERS
+        - elsif ctrl_param == 'admin_companies' or ctrl_action == 'admin_companies_index'
+          = APP::COMPANIES
+        - else
+          = ""
+    #bs-example-navbar-collapse-1.collapse.navbar-collapse
+      ul.nav.navbar-nav.navbar-right
+        - unless @alerted_count.blank? or @alerted_count == 0 or 'admin_stocks_index'.include?(ctrl_action) ? false : true
+          li.dropdown
+            a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
+              span.alerted-count = @alerted_count
+              i.fa.fa-bell
+              span.caret
+            ul.dropdown-menu.card.card-navbar.custom-pad
+              - if @alerted_count
+                - i = 0
+                - for alr in @alerted_stock
+                  li
+                    = link_to "<strong>#{alr.name}</strong> is running out of stock!".html_safe, edit_admin_stock_path(alr.id), class: "alert-link"
+                    - i += 1
+                    - unless i > (@alerted_count - 1)
+                      hr.seperator
+        li.padd
+          - if current_user
+            strong.username = current_user.username
+        li.dropdown
+          a.dropdown-toggle.nav-user aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
+            i.fa.fa-user.fa-nav
+          ul.dropdown-menu.card.card-navbar
+            li
+              - if current_user
+                a href="#" = current_user.role.name.capitalize
+              - else
+                a href="#"  Admin
+            li
+              a href="#"  Edit
+            li
+              = link_to "Sign Out", destroy_user_session_path, :method => :delete
+      / form.navbar-form.navbar-right
+      /   .input-group
+      /     input.form-control placeholder="Search" type="text" /
+      /     span.input-group-btn
+      /       button.btn.btn-default type="submit"
+      /         i.fa.fa-search
