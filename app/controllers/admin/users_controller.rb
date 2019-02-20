@@ -13,7 +13,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def new
-    @roles = Role.all
+    @roles = Role.order('id DESC')
     @user = User.new
     @user_form_url = admin_users_path
   end
@@ -25,7 +25,7 @@ class Admin::UsersController < ApplicationController
 
     # if save record success
     if @user.save
-      flash[:success] = "User #{@user.username} had been created successfully."
+      flash[:success] = "User #{@user.name} had been created successfully."
       redirect_to admin_users_path
       return
     else
@@ -68,7 +68,7 @@ class Admin::UsersController < ApplicationController
 
     # if update record success
     if @user.update(user_without_password_params)
-      flash[:success] = "User #{@user.username} had been updated successfully."
+      flash[:success] = "User #{@user.name} had been updated successfully."
       redirect_to admin_users_path
       return
     else
@@ -108,7 +108,7 @@ class Admin::UsersController < ApplicationController
   private
 
   def user_without_password_params
-    params.require(:user).permit(:email, :gender, :username, :role_id, :status)
+    params.require(:user).permit(:email, :gender, :firstname, :lastname, :name, :role_id, :status)
   end
 
   def user_password_params
@@ -116,6 +116,6 @@ class Admin::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :gender, :username, :password, :password_confirmation, :role_id, :status)
+    params.require(:user).permit(:email, :gender, :firstname, :lastname, :name, :password, :password_confirmation, :role_id, :status)
   end
 end

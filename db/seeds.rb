@@ -11,4 +11,4 @@
   Role.find_or_create_by({name: role[:name], descriptions: role[:desc]})
 end
 
-User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password', role_id: Role.find_by_name('superadmin')) unless User.find_by_email('admin@example.com')
+User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password', firstname: 'admin', lastname: 'pro', role_id: Role.find_by_name('superadmin')) unless User.find_by_email('admin@example.com')

@@ -1,20 +1,26 @@
-h2.title Stock Detail
+h2.title User Detail
 .row
-  .col-sm-6
+  .col-sm-4
     .card.card-tasks
       .card-body
         .form-group
-          label for="stock_name" Username
-          input.form-control name="stock_name" value = @user.username readonly=""
+          label Firstname
+          input.form-control name="stock_name" value = @user.firstname readonly=""
         .form-group
-          label for="stock_name" Email
+          label Lastname
+          input.form-control name="stock_name" value = @user.lastname readonly=""
+        .form-group
+          label Username
+          input.form-control name="stock_name" value = @user.name readonly=""
+        .form-group
+          label Email
           input.form-control name="stock_name" value = @user.email readonly=""
         .form-group
-          label for="stock_name" Gender
+          label Gender
           input.form-control name="stock_name" value = @user.gender readonly=""
         .form-group
-          label for="stock_name" Role
+          label Role
           input.form-control name="stock_name" value = @user.role.name readonly=""
         .form-group
-          label for="stock_name" Status
+          label Status
           input.form-control name="stock_name" value = @user.status readonly=""

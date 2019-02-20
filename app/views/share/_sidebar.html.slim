@@ -11,7 +11,7 @@ aside#mySidenav.sidebar
         = link_to admin_users_dashboard_path
           i.fa.fa-tachometer
           | Dashboard
-      li class="#{(['admin_users_index', 'admin_users_new', 'admin_users_create', 'admin_users_edit'].include?(ctrl_action)) ? "active": ""}"
+      li class="#{(['admin_users_index', 'admin_users_new', 'admin_users_create', 'admin_users_edit', 'admin_users_show'].include?(ctrl_action)) ? "active": ""}"
         = link_to admin_users_path
           i.fa.fa-home
           | Users
@@ -25,11 +25,11 @@ aside#mySidenav.sidebar
           | Companies
 
     - elsif pa_controller[0] == APP::MY
-      li class="#{(['admin_users_dashboard'].include?(ctrl_action)) ? "active": ""}"
+      li class="#{(['my_users_dashboard'].include?(ctrl_action)) ? "active": ""}"
         = link_to admin_users_dashboard_path
           i.fa.fa-tachometer
           | Dashboard
-      li class="#{(['admin_stock_categories_index', 'admin_stock_categories_edit', 'admin_stock_categories_create', 'admin_stock_categories_delete'].include?(ctrl_action)) ? "active": ""}"
+      li class="#{(['my_stock_categories_index', 'my_stock_categories_edit', 'my_stock_categories_create', 'my_stock_categories_delete'].include?(ctrl_action)) ? "active": ""}"
         = link_to admin_stock_categories_path
           i.fa.fa-list-alt
           | Stock Category

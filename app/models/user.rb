@@ -9,6 +9,11 @@ class User < ApplicationRecord
 
   enum status: { pending: APP::PENDING, active: APP::ACTIVE, inactive: APP::INACTIVE, banned: APP::BANNED }
   enum gender: { male: APP::MALE, female: APP::FEMALE, other: APP::OTHER }
+  before_save :concatenate_name
+
+  def concatenate_name
+    self.name = "#{firstname}#{lastname}"
+  end
 
   private
 
