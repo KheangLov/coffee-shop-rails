@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190220003124) do
+ActiveRecord::Schema.define(version: 20190220200814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,28 @@ ActiveRecord::Schema.define(version: 20190220003124) do
     t.datetime "updated_at", null: false
     t.index ["branch_id"], name: "index_employees_on_branch_id"
     t.index ["company_id"], name: "index_employees_on_company_id"
+  end
+
+  create_table "product_categories", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_product_categories_on_name"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.bigint "product_category_id"
+    t.bigint "stock_id"
+    t.string "name"
+    t.decimal "price", precision: 10, scale: 2
+    t.decimal "qty", precision: 10, scale: 2
+    t.integer "sale"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_products_on_name"
+    t.index ["product_category_id"], name: "index_products_on_product_category_id"
+    t.index ["stock_id"], name: "index_products_on_stock_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -92,6 +114,8 @@ ActiveRecord::Schema.define(version: 20190220003124) do
   add_foreign_key "companies", "users"
   add_foreign_key "employees", "branches"
   add_foreign_key "employees", "companies"
+  add_foreign_key "products", "product_categories"
+  add_foreign_key "products", "stocks"
   add_foreign_key "stock_categories", "branches"
   add_foreign_key "stocks", "branches"
   add_foreign_key "stocks", "stock_categories"

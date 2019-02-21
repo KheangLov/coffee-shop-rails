@@ -19,7 +19,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def create
-    @roles = Role.all
+    @roles = Role.where('name IS NOT "superadmin"')
     @user = User.new(user_params)
     @user_form_url = admin_users_path
 

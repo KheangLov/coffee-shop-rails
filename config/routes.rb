@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  namespace :my do
+    get 'product_categories/index'
+  end
+
+  namespace :my do
+    get 'products/index'
+  end
+
+  get 'products/index'
+
+  get 'product_categories/index'
+
   # get 'homes/index'
 
   namespace :admin do
@@ -25,6 +37,8 @@ Rails.application.routes.draw do
   namespace :my do
     get 'users/dashboard'
     resources :companies
+    resources :product_categories
+    resources :products
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

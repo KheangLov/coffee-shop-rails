@@ -20,7 +20,7 @@
             = f.text_field :email, class: 'form-control', placeholder: 'Email'
           .form-group
             = f.label :user, for: "company_user_id"
-            = f.select(:user_id, @users.collect { |a| [a.username, a.id] }, {}, class: 'form-control')
+            = f.select(:user_id, @users.collect { |a| [a.name, a.id] }, {}, class: 'form-control')
           .form-group
             = f.label :address, for: 'company_address'
             = f.text_area :address, rows: 2, cols: 2, class: 'form-control', placeholder: 'Address'

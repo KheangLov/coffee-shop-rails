@@ -15,20 +15,14 @@ aside#mySidenav.sidebar
         = link_to admin_users_path
           i.fa.fa-home
           | Users
-      li class="#{(['admin_branches_index', 'admin_branches_new', 'admin_branches_create', 'admin_branches_edit'].include?(ctrl_action)) ? "active": ""}"
-        = link_to admin_branches_path
-          i.fa.fa-home
-          | Branch
+      / li class="#{(['admin_branches_index', 'admin_branches_new', 'admin_branches_create', 'admin_branches_edit'].include?(ctrl_action)) ? "active": ""}"
+      /   = link_to admin_branches_path
+      /     i.fa.fa-home
+      /     | Branch
       li class="#{(['admin_companies_index', 'admin_companies_new', 'admin_stock_categories_create', 'admin_stock_categories_delete'].include?(ctrl_action)) ? "active": ""}"
         = link_to admin_companies_path
           i.fa.fa-list-alt
           | Companies
-
-    - elsif pa_controller[0] == APP::MY
-      li class="#{(['my_users_dashboard'].include?(ctrl_action)) ? "active": ""}"
-        = link_to admin_users_dashboard_path
-          i.fa.fa-tachometer
-          | Dashboard
       li class="#{(['my_stock_categories_index', 'my_stock_categories_edit', 'my_stock_categories_create', 'my_stock_categories_delete'].include?(ctrl_action)) ? "active": ""}"
         = link_to admin_stock_categories_path
           i.fa.fa-list-alt
@@ -37,3 +31,25 @@ aside#mySidenav.sidebar
         = link_to admin_stocks_path
           i.fa.fa-table
           | Stock
+
+    - elsif pa_controller[0] == APP::MY
+      li class="#{(['my_users_dashboard'].include?(ctrl_action)) ? "active": ""}"
+        = link_to admin_users_dashboard_path
+          i.fa.fa-tachometer
+          | Dashboard
+      li class="#{(['my_stock_categories_index', 'my_stock_categories_edit', 'my_stock_categories_create', 'my_stock_categories_delete'].include?(ctrl_action)) ? "active": ""}"
+        = link_to my_product_categories_path
+          i.fa.fa-list-alt
+          | Product Categories
+      li class="#{(['admin_stocks_index', 'admin_stocks_show', 'admin_stocks_edit'].include?(ctrl_action)) ? "active": ""}"
+        = link_to my_products_path
+          i.fa.fa-table
+          | Products
+      / li class="#{(['my_stock_categories_index', 'my_stock_categories_edit', 'my_stock_categories_create', 'my_stock_categories_delete'].include?(ctrl_action)) ? "active": ""}"
+      /   = link_to admin_stock_categories_path
+      /     i.fa.fa-list-alt
+      /     | Stock Category
+      / li class="#{(['admin_stocks_index', 'admin_stocks_show', 'admin_stocks_edit'].include?(ctrl_action)) ? "active": ""}"
+      /   = link_to admin_stocks_path
+      /     i.fa.fa-table
+      /     | Stock
