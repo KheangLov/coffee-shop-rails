@@ -4,14 +4,17 @@ class Admin::StockCategoriesController < ApplicationController
   layout :admin_layout
 
   def index
-    @branches = Branch.all
+    # @branches = Branch.all
+    @companies = Company.where(user_id: current_user.id)
+    @branches = Branch.where(company_id: @companies.ids)
     @stock_categories = StockCategory.all
     @stock_category = StockCategory.new
     @stock_category_form_url = admin_stock_categories_path
   end
 
   def new
-    @branches = Branch.all
+    @companies = Company.where(user_id: current_user.id)
+    @branches = Branch.where(company_id: params[:company_id])
     @stock_categories = StockCategory.all
     @stock_category = StockCategory.new
     @stock_category_form_url = admin_stock_categories_path
@@ -19,7 +22,8 @@ class Admin::StockCategoriesController < ApplicationController
 
 
   def create
-    @branches = Branch.all
+    @companies = Company.where(user_id: current_user.id)
+    @branches = Branch.where(company_id: params[:company_id])
     @stock_categories = StockCategory.all
     @stock_category = StockCategory.new(stock_category_params)
     @stock_category_form_url = admin_stock_categories_path
@@ -29,6 +33,7 @@ class Admin::StockCategoriesController < ApplicationController
       flash[:success] = "Stock Category #{@stock_category.name} had been created successfully."
       redirect_to admin_stock_categories_path
       return
+
     else
       @error_messages = @stock_category
       render 'index'
@@ -37,6 +42,8 @@ class Admin::StockCategoriesController < ApplicationController
   end
 
   def edit
+    @companies = Company.where(user_id: current_user.id)
+    @branches = Branch.where(company_id: params[:company_id])
     # find record with an id params
     @stock_categories = StockCategory.where(branch_id: @branches.ids)
     @stock_category = StockCategory.find_by_id(params[:id])
@@ -55,6 +62,8 @@ class Admin::StockCategoriesController < ApplicationController
 
   # update department
   def update
+    @companies = Company.where(user_id: current_user.id)
+    @branches = Branch.where(company_id: params[:company_id])
     # find record with an id params
     @stock_category = StockCategory.find_by_id(params[:id])
 
@@ -110,6 +119,6 @@ class Admin::StockCategoriesController < ApplicationController
   private
 
   def stock_category_params
-    params.require(:stock_category).permit(:name, :description, :branch_id)
+    params.require(:stock_category).permit(:name, :description, :branch_id, :company_id)
   end
 end

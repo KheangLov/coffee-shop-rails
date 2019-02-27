@@ -35,9 +35,9 @@ class Admin::CompaniesController < ApplicationController
     @users = User.all
     @companies = Company.all
     @company = Company.find_by_id(params[:id])
-    @company_user_id = Company.where(user_id: current_user.id)
+    @company_user_id = Company.find_by(user_id: current_user.id)
 
-    if @company_user_id != current_user.id
+    unless @company_user_id != current_user.id
       flash[:warning] = "You're not a company's owner!"
       redirect_to admin_users_dashboard_path
       return
@@ -50,7 +50,7 @@ class Admin::CompaniesController < ApplicationController
     end
 
     @company_method = "PATCH"
-    @company_form_url = admin_companies_path(@company.id)
+    @company_form_url = admin_company_path(@company.id)
   end
 
   # update department
@@ -66,7 +66,7 @@ class Admin::CompaniesController < ApplicationController
     end
 
     @company_method = "PATCH"
-    @company_form_url = admin_companies_path(@company.id)
+    @company_form_url = admin_company_path(@company.id)
 
     # if update record success
     if @company.update(company_params)
@@ -80,17 +80,34 @@ class Admin::CompaniesController < ApplicationController
     end
   end
 
-  # def show
-  #   # find record with an id params
-  #   @company = Company.find_by_id(params[:id])
+  def show
+    # find record with an id params
+    @company = Company.find_by_id(params[:id])
 
-  #   unless @company
-  #     flash[:error] = "Company not found with an id ##{params[:id]}"
-  #     redirect_to admin_companies_path
-  #     return
-  #   end
-  # end
+    unless @company
+      flash[:error] = "Company not found with an id ##{params[:id]}"
+      redirect_to admin_companies_path
+      return
+    end
+    
+    @branches = Branch.where(company_id: @company.id)
+  end
 
+  def destroy
+    # find record with an id params
+    @company = Company.find_by_id(params[:id])
+
+    unless @company
+      flash[:error] = "Company not found with an id ##{params[:id]}"
+      redirect_to admin_companies_path
+      return
+    end
+
+    @company.destroy
+    flash[:success] = "Company with an id ##{params[:id]} has been deleted"
+    redirect_to admin_companies_path
+
+  end
   private
 
   def company_params

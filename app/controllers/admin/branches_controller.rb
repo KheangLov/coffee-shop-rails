@@ -4,7 +4,8 @@ class Admin::BranchesController < ApplicationController
   layout :admin_layout
 
   def index
-    @branches = Branch.all
+    # @branches = Branch.all
+    redirect_to admin_companies_path
   end
 
   def new
@@ -21,7 +22,7 @@ class Admin::BranchesController < ApplicationController
     # if save record success
     if @branch.save
       flash[:success] = "Branch #{@branch.name} had been created successfully."
-      redirect_to admin_branches_path
+      redirect_to admin_companies_path
       return
     else
       @error_messages = @branch
@@ -33,7 +34,7 @@ class Admin::BranchesController < ApplicationController
   def edit
     # find record with an id params
     @companies = Company.all
-    @branches = Branch.all
+    # @branches = Branch.all
     @branch = Branch.find_by_id(params[:id])
 
     unless @branch
@@ -82,6 +83,8 @@ class Admin::BranchesController < ApplicationController
       redirect_to admin_branches_path
       return
     end
+    
+    @company = @branch.company
   end
 
   private

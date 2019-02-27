@@ -1,0 +1,10 @@
+- unless @branch.blank?
+  .block-grid-item
+    a.block-inner.card href="#{admin_branch_path(@branch.id)}"
+      .block-description.card-body
+        h4.block-title = @branch.name
+- else
+  .alert.alert-warning.alert-dismissible role="alert"
+    button type="button" class="close" data-dismiss="alert" aria-label="Close"
+      span aria-hidden="true" &times
+    strong Your company doesn't have any braches yet!

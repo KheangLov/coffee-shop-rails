@@ -1,5 +1,18 @@
-- unless @company.blank?
-    .block-grid-item
-      a.block-inner.card href="#{edit_admin_company_path(@company.id)}"
-        .block-description.card-body
-          h4.block-title = @company.name
+/ - unless @company.blank?
+/     .block-grid-item
+/       a.block-inner.card href="#{edit_admin_company_path(@company.id)}"
+/         .block-description.card-body
+/           h4.block-title = @company.name
+
+tr
+  td = @i += 1
+  td = @company.name
+  td = @company.user.name
+  td = @company.email
+  td = @company.phone
+  td = @company.website
+  td
+    ul class="list-inline"
+      li = link_to "Edit", edit_admin_company_path(@company.id)
+      li = link_to "Show", admin_company_path(@company.id)
+      li = link_to "Delete", admin_company_path(@company.id), method: :delete, data: { confirm: 'Are you sure?' }

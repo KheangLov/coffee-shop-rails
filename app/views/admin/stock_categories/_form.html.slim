@@ -5,6 +5,9 @@
     = f.label :name, for: 'branch_name'
     = f.text_field :name, class: 'form-control', placeholder: 'Name', autofocus: true
   .form-group
+    = f.label :company, for: "company_id"
+    = f.select(:company_id, @companies.all.collect { |a| [a.name, a.id] }, {}, class: 'form-control')
+  .form-group
     = f.label :branch, for: "branch_id"
     = f.select(:branch_id, @branches.all.collect { |a| [a.name, a.id] }, {}, class: 'form-control')
   .form-group

@@ -86,5 +86,5 @@ test:
 production:
   <<: *default
   database: coffee-shop_production
-  username: coffee-shop
+  username: coffee_shop
   password: <%= ENV['COFFEE-SHOP_DATABASE_PASSWORD'] %>

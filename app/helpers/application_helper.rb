@@ -58,4 +58,9 @@ module ApplicationHelper
       }
     end
   end
+
+  def is_user_have_companies? obj
+    @user_companies = Company.find_by("user_id = #{obj}")
+    return @user_companies.blank?
+  end
 end

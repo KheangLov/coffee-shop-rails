@@ -1,11 +1,34 @@
+/ .row
+/   .col-sm-12
+/     - unless @companies.blank?
+/       .section-wrapper
+/         .block-grid-xs-2.block-grid-sm-4.block-grid-md-4.block-grid-lg-4
+/           - for @company in @companies
+/             = render 'list'
+/     - else
+/       .section-wrapper
+/         p We don't have any companies yet!
+
+= link_to "Add New", new_admin_company_path, :class => "btn btn-primary btn-btmar"
 .row
   .col-sm-12
-    = link_to "Add New", new_admin_company_path, :class => "btn btn-primary"
-    - unless @companies.blank?
-      .section-wrapper
-        .block-grid-xs-2.block-grid-sm-4.block-grid-md-4.block-grid-lg-4
-          - for @company in @companies
-            = render 'list'
-    - else
-      .section-wrapper
-        p We don't have any companies yet!
+    .card.card-tasks
+      .card-body
+        - unless @companies.blank?
+          table.table
+            thead
+              tr
+                th #
+                th Name
+                th Owner
+                th Email
+                th Phone
+                th Website
+                th Action
+            tbody
+              - @i = 0
+              - for @company in @companies
+                = render 'list'
+        - else
+          .section-wrapper
+            p We don't have any companies yet!
